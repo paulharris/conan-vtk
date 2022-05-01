@@ -1,0 +1,24 @@
+sources:
+  "9.1.0":
+    url:
+      - "https://www.vtk.org/files/release/9.1/VTK-9.1.0.tar.gz"
+    sha256: "8fed42f4f8f1eb8083107b68eaa9ad71da07110161a3116ad807f43e5ca5ce96"
+
+patches:
+
+  "9.1.0":
+    - patch_file: "patches/9.1.0-remove-qt-59-limit.patch"
+      base_path: "vtk_source"
+      patch_description: "Remove some leftover version requirements that block us from using QT 6"
+
+        # - patch_file: "patches/0002-dont-override-all-cmake-modules.patch"
+        # base_path: "vtk_source"
+        # patch_description: "Don't let VTK put its finders at the front of the queue"
+
+    - patch_file: "patches/9.1.0-third-party_no-bundled-cmake-finders.patch"
+      base_path: "vtk_source"
+      patch_description: "Remove all bundled finders from a list in VTK's cmake file"
+
+    - patch_file: "patches/9.1.0-third-party-specifications.patch"
+      base_path: "vtk_source"
+      patch_description: "Update to suit the conan CCI environment: third party library version numbers, target names and variables"

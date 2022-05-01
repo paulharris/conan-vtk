@@ -1,13 +1,24 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from conans import ConanFile, CMake
-import os
+# import os
+from conan import ConanFile #, tools
+# from conans.tools import os_info, collect_libs
+from conan.tools.cmake import CMakeToolchain, CMake #, cmake_layout
 
 
 class TestPackageConan(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake"
+    generators = "CMakeToolchain", "CMakeDeps"
+
+    requires = "vtkbundle/9.1.0"
+    options = { "shared": [True,False], "fPIC": [True,False] }
+    default_options = {
+              "fPIC": True
+            , "shared": True
+            , "vtk:use_64bit_ids": False
+            , "vtk:qt": True
+            }
 
     def build(self):
         cmake = CMake(self)
